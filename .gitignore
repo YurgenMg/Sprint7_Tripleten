@@ -206,3 +206,7 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Processed data
+# This data can be regenerated from the raw data and scripts
+data/processed/

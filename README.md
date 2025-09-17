@@ -1,26 +1,44 @@
-# Sprint7_Tripleten
-Hola 👋, soy Yurgen, y en este repositorio encontrarás un proyecto práctico  para fortalecer mis habilidades esenciales  como analista de datos.
+# Análisis de Anuncios de Venta de Coches en EE. UU.
 
-# 🚗 Panel de Control: Anuncios de Venta de Vehículos
+Este proyecto analiza un conjunto de datos de anuncios de vehículos usados para descubrir información clave sobre los factores que influyen en el precio. El objetivo es entender la relación entre características como el año del modelo, el kilometraje, la condición y el precio de venta.
 
-## 🎯 Objetivo
-Este proyecto consiste en una aplicación web interactiva que permite explorar visualmente un conjunto de datos de anuncios de venta de vehículos en EE.UU.
+Los resultados se presentan en un **dashboard web interactivo** construido con Streamlit que permite a los usuarios explorar los datos y las visualizaciones de forma dinámica.
 
-## 🛠️ Tecnologías utilizadas
-- Python
-- Pandas (manipulación de datos)
-- Plotly Express (gráficos interactivos)
-- Streamlit (interfaz web)
-- Git y GitHub (control de versiones)
+## Características del Dashboard
 
-## 🖥️ Funcionalidades
-- Histograma del kilometraje (odómetro)
-- Gráfico de dispersión: Precio vs Kilometraje
-- Visualización condicional mediante casillas de verificación
-- Diseño responsive y fácil de usar
+*   **Histograma de Kilometraje:** Visualiza la distribución del odómetro de los vehículos.
+*   **Histograma de Precios:** Explora la distribución de los precios de venta.
+*   **Gráfico de Dispersión (Precio vs. Kilometraje):** Analiza la correlación entre el precio y el kilometraje, con puntos coloreados según la **condición** del vehículo.
 
-## ▶️ Cómo ejecutar
-1. Clona el repositorio
-2. Activa tu entorno virtual
-3. Instala dependencias: `pip install pandas streamlit plotly-express`
-4. Ejecuta: `streamlit run app.py`
+## Instalación
+
+1.  Clona este repositorio en tu máquina local.
+2.  Asegúrate de tener Python 3.8+ instalado.
+3.  Instala las dependencias necesarias ejecutando el siguiente comando en la raíz del proyecto:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+## Uso
+
+Para lanzar el dashboard interactivo, ejecuta el siguiente comando desde el directorio raíz del proyecto:
+
+```bash
+streamlit run app.py
+```
+
+Esto iniciará un servidor local y abrirá la aplicación en tu navegador web.
+
+## Estructura del Proyecto
+
+- **data/**: Contiene los datos brutos (`raw`) y procesados (`processed`).
+- **notebooks/**: Jupyter notebooks para limpieza, análisis exploratorio y estadístico.
+- **src/**: Código fuente modularizado para procesamiento, análisis y utilidades.
+- **tests/**: Pruebas unitarias para garantizar la calidad del código.
+- **docs/**: Documentación adicional como el diccionario de datos y la metodología.
+- **results/**: Almacena resultados generados, como figuras estáticas.
+
+## Licencia
+
+Este proyecto está bajo la Licencia MIT. Consulta el archivo `LICENSE` para más detalles.

@@ -1,59 +1,94 @@
-# app.py
-import pandas as pd
 import streamlit as st
 import plotly.express as px
+import pandas as pd
 
-# Configuración de la página
-st.set_page_config(page_title="Análisis de Vehículos", layout="wide")
+# Importar la función de procesamiento de datos desde el módulo src
+from src.data_processing import load_and_preprocess_data
 
-# Título de la aplicación
-st.header("🚗 Análisis de Anuncios de Venta de Vehículos")
+# --- Configuración de la Página ---
+st.set_page_config(page_title="Dashboard de Análisis de Vehículos", layout="wide")
 
-# Leer datos
+# --- Carga de Datos ---
 @st.cache_data
-def cargar_datos():
-    df = pd.read_csv('vehicles_us.csv')
-    # Convertir a datetime
-    df['date_posted'] = pd.to_datetime(df['date_posted'])
-    # Crear columna de edad del vehículo
-    df['age'] = df['date_posted'].dt.year - df['model_year']
-    return df
+def cached_load_data():
+    file_path = "data/raw/vehicles_us.csv"
+    return load_and_preprocess_data(file_path)
 
-car_data = cargar_datos()
+car_data = cached_load_data()
 
-# Mostrar vista previa de los datos (opcional)
-st.write("### Vista previa de los datos")
-st.dataframe(car_data.head())
+# --- Barra Lateral de Controles ---
+st.sidebar.header("Filtros y Controles")
 
-# Sección de visualizaciones
-st.write("### Explora los datos")
+# Filtro por año del modelo
+min_year = int(car_data['model_year'].min())
+max_year = int(car_data['model_year'].max())
+selected_year_range = st.sidebar.slider(
+    "Filtrar por año del modelo:",
+    min_value=min_year,
+    max_value=max_year,
+    value=(min_year, max_year)  # Por defecto, selecciona todos los años
+)
 
-# Casilla de verificación para histograma
-if st.checkbox('Mostrar histograma del odómetro'):
-    st.write('Creación de un histograma para el odómetro')
-    fig = px.histogram(car_data, x="odometer", nbins=50, title="Distribución del odómetro",
-                    labels={"odometer": "Kilometraje (millas)"})
-    st.plotly_chart(fig, use_container_width=True)
+# Filtro por condición del vehículo
+available_conditions = sorted(car_data['condition'].dropna().unique())
+selected_conditions = st.sidebar.multiselect(
+    "Filtrar por condición:",
+    options=available_conditions,
+    default=available_conditions
+)
 
-# Casilla de verificación para gráfico de dispersión
-if st.checkbox('Mostrar gráfico de dispersión: Precio vs Odómetro'):
-    st.write('Relación entre precio y kilometraje')
-    fig = px.scatter(car_data, x="odometer", y="price", color="condition",
-                    title="Precio vs Kilometraje",
-                    labels={"odometer": "Kilometraje", "price": "Precio (USD)"},
-                    hover_data=["model", "model_year"])
-    st.plotly_chart(fig, use_container_width=True)
+st.sidebar.write("---")
 
-# Opcional: Histograma de precios
-if st.checkbox('Mostrar distribución de precios'):
-    st.write('Distribución de precios de vehículos')
-    fig = px.histogram(car_data, x="price", nbins=50, title="Distribución de precios",
-                    color_discrete_sequence=['green'])
-    fig.update_layout(xaxis=dict(range=[0, 50000]))  # Limitar eje X para mejor visualización
-    st.plotly_chart(fig, use_container_width=True)
+# Checkboxes para mostrar/ocultar gráficos
+st.sidebar.subheader("Mostrar/Ocultar Gráficos")
+show_odo_hist = st.sidebar.checkbox('Histograma de odómetro', value=True)
+show_price_hist = st.sidebar.checkbox('Histograma de precios')
+show_scatter = st.sidebar.checkbox('Dispersión: Precio vs Odómetro', value=True)
 
-# Información adicional
-st.write("### Información del dataset")
-st.write(f"Total de anuncios: {len(car_data)}")
-st.write(f"Rango de precios: ${car_data['price'].min():,.0f} - ${car_data['price'].max():,.0f}")
-st.write(f"Rango de kilometraje: {car_data['odometer'].min():,.0f} - {car_data['odometer'].max():,.0f} millas")
+# --- Filtrado de Datos ---
+# Aplicar los filtros seleccionados en la barra lateral
+filtered_data = car_data[
+    (car_data['model_year'] >= selected_year_range[0]) &
+    (car_data['model_year'] <= selected_year_range[1]) &
+    (car_data['condition'].isin(selected_conditions))
+]
+
+# --- Página Principal ---
+st.title("🚗 Dashboard de Análisis de Vehículos")
+st.markdown(f"Mostrando **{len(filtered_data)}** de **{len(car_data)}** anuncios según los filtros seleccionados.")
+
+
+# --- Visualizaciones ---
+st.divider()
+
+# Organizar los histogramas en columnas
+col1, col2 = st.columns(2)
+
+with col1:
+    if show_odo_hist:
+        st.subheader("Distribución del Odómetro")
+        fig_odo = px.histogram(filtered_data, x="odometer", nbins=50,
+                               labels={"odometer": "Kilometraje (millas)"})
+        st.plotly_chart(fig_odo, use_container_width=True)
+
+with col2:
+    if show_price_hist:
+        st.subheader("Distribución de Precios")
+        fig_price = px.histogram(filtered_data, x="price", nbins=50,
+                                 color_discrete_sequence=['green'])
+        fig_price.update_layout(xaxis=dict(range=[0, 50000]))
+        st.plotly_chart(fig_price, use_container_width=True)
+
+# Gráfico de dispersión
+if show_scatter:
+    st.subheader("Relación Precio vs. Kilometraje por Condición")
+    fig_scatter = px.scatter(filtered_data, x="odometer", y="price", color="condition",
+                             labels={"odometer": "Kilometraje", "price": "Precio (USD)"},
+                             hover_data=["model", "model_year"])
+    st.plotly_chart(fig_scatter, use_container_width=True)
+
+# --- Vista Previa de Datos Filtrados (Opcional) ---
+st.divider()
+if st.checkbox("Mostrar tabla de datos filtrados"):
+    st.write("### Datos Seleccionados")
+    st.dataframe(filtered_data)
