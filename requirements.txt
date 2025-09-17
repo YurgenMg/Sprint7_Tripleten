@@ -1,7 +1,4 @@
-# Dependencias principales del proyecto
-pandas>=2.3.1
-streamlit>=1.48.0
-plotly>=6.2.0
-
-# Herramientas de desarrollo y calidad de código
-ruff>=0.1.0
+pandas==2.3.1
+streamlit==1.48.0
+plotly==6.2.0
+ruff==0.13.0

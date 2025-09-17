@@ -1,44 +1,123 @@
-# Análisis de Anuncios de Venta de Coches en EE. UU.
+# 🚗 Dashboard de Análisis de Vehículos USA
 
-Este proyecto analiza un conjunto de datos de anuncios de vehículos usados para descubrir información clave sobre los factores que influyen en el precio. El objetivo es entender la relación entre características como el año del modelo, el kilometraje, la condición y el precio de venta.
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.0%2B-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![Plotly](https://img.shields.io/badge/Plotly-5.0%2B-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)](https://plotly.com/)
+[![Licencia: MIT](https://img.shields.io/badge/Licencia-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-Los resultados se presentan en un **dashboard web interactivo** construido con Streamlit que permite a los usuarios explorar los datos y las visualizaciones de forma dinámica.
+Un dashboard interactivo para el análisis profundo del mercado de vehículos usados en Estados Unidos. Esta herramienta profesional permite a los usuarios explorar y analizar factores clave que influyen en los precios de los vehículos, facilitando la toma de decisiones informada en el mercado automotriz.
 
-## Características del Dashboard
+![Dashboard Preview](https://raw.githubusercontent.com/YurgenMg/Sprint7_Tripleten/main/docs/dashboard_preview.png)
 
-*   **Histograma de Kilometraje:** Visualiza la distribución del odómetro de los vehículos.
-*   **Histograma de Precios:** Explora la distribución de los precios de venta.
-*   **Gráfico de Dispersión (Precio vs. Kilometraje):** Analiza la correlación entre el precio y el kilometraje, con puntos coloreados según la **condición** del vehículo.
+## 🌟 Características Principales
 
-## Instalación
+- 📊 **Visualizaciones Interactivas**: Gráficos dinámicos y personalizables
+- 🔍 **Filtros Avanzados**: Por año, condición y otros parámetros clave
+- 📈 **Análisis en Tiempo Real**: Actualización instantánea de estadísticas
+- 💡 **Insights Automáticos**: Descubre patrones y tendencias importantes
+- 📱 **Diseño Responsivo**: Experiencia óptima en cualquier dispositivo
 
-1.  Clona este repositorio en tu máquina local.
-2.  Asegúrate de tener Python 3.8+ instalado.
-3.  Instala las dependencias necesarias ejecutando el siguiente comando en la raíz del proyecto:
+## 📊 Visualizaciones Disponibles
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+### 1. Análisis de Kilometraje
+- 📈 Distribución detallada del kilometraje
+- 🎯 Identificación de rangos más comunes
+- 📉 Detección de valores atípicos
 
-## Uso
+### 2. Análisis de Precios
+- 💰 Distribución completa de precios
+- 📊 Segmentación por rangos de precio
+- 💎 Identificación de oportunidades de mercado
 
-Para lanzar el dashboard interactivo, ejecuta el siguiente comando desde el directorio raíz del proyecto:
+### 3. Relación Precio-Kilometraje
+- 🔄 Correlación dinámica entre variables
+- 🎨 Segmentación por condición del vehículo
+- 🎯 Identificación de tendencias de mercado
 
-```bash
-streamlit run app.py
+## ⚙️ Instalación
+
+### Requisitos Previos
+- Python 3.8 o superior
+- pip (gestor de paquetes de Python)
+- Git
+
+### Pasos de Instalación
+
+1. Clone el repositorio:
+   ```bash
+   git clone https://github.com/YurgenMg/Sprint7_Tripleten.git
+   cd Sprint7_Tripleten
+   ```
+
+2. Cree y active un entorno virtual (recomendado):
+   ```bash
+   python -m venv venv
+   # En Windows:
+   venv\Scripts\activate
+   # En macOS/Linux:
+   source venv/bin/activate
+   ```
+
+3. Instale las dependencias:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## 🚀 Uso
+
+1. Inicie el dashboard:
+   ```bash
+   streamlit run app.py
+   ```
+
+2. Acceda a través de su navegador:
+   - Por defecto: `http://localhost:8501`
+   - La URL exacta se mostrará en la terminal
+
+3. Explore las funcionalidades:
+   - Use los filtros de la barra lateral
+   - Interactúe con los gráficos
+   - Exporte datos y visualizaciones
+
+## 📁 Estructura del Proyecto
+
+```
+Sprint7_Tripleten/
+├── 📊 app.py                # Aplicación principal Streamlit
+├── 📝 requirements.txt      # Dependencias del proyecto
+├── 📜 LICENSE              # Licencia MIT
+├── 📖 README.md            # Documentación principal
+├── 🔧 setup.py             # Configuración del paquete
+├── 📂 data/                # Datos del proyecto
+│   ├── raw/                # Datos sin procesar
+│   └── processed/          # Datos procesados
+├── 📚 docs/                # Documentación detallada
+├── 📓 notebooks/           # Jupyter notebooks
+├── 📊 results/             # Resultados y figuras
+├── 🛠️ src/                 # Código fuente
+└── 🧪 tests/               # Pruebas unitarias
 ```
 
-Esto iniciará un servidor local y abrirá la aplicación en tu navegador web.
+## 🤝 Contribuir
 
-## Estructura del Proyecto
+¡Las contribuciones son bienvenidas! Para contribuir:
 
-- **data/**: Contiene los datos brutos (`raw`) y procesados (`processed`).
-- **notebooks/**: Jupyter notebooks para limpieza, análisis exploratorio y estadístico.
-- **src/**: Código fuente modularizado para procesamiento, análisis y utilidades.
-- **tests/**: Pruebas unitarias para garantizar la calidad del código.
-- **docs/**: Documentación adicional como el diccionario de datos y la metodología.
-- **results/**: Almacena resultados generados, como figuras estáticas.
+1. Fork el proyecto
+2. Cree una rama para su característica (`git checkout -b feature/AmazingFeature`)
+3. Commit sus cambios (`git commit -m 'Add: Nueva característica'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abra un Pull Request
 
-## Licencia
+## 📜 Licencia
 
-Este proyecto está bajo la Licencia MIT. Consulta el archivo `LICENSE` para más detalles.
+Este proyecto está bajo la Licencia MIT - vea el archivo [`LICENSE`](LICENSE) para más detalles.
+
+## 👥 Autor
+
+- **YurgenMg** - [GitHub](https://github.com/YurgenMg)
+
+## 🙏 Agradecimientos
+
+- [Tripleten](https://tripleten.com) por la formación y los datos proporcionados
+- La comunidad de Streamlit por sus excelentes herramientas
+- Todos los contribuidores que han ayudado a mejorar este proyecto
