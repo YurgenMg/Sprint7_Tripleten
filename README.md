@@ -45,8 +45,8 @@ Un dashboard interactivo para el análisis profundo del mercado de vehículos us
 
 1. Clone el repositorio:
    ```bash
-   git clone https://github.com/YurgenMg/Sprint7_Tripleten.git
-   cd Sprint7_Tripleten
+   git clone https://github.com/YurgenMg/Dashboard_de_Analisis_de_Vehiculos_USA.git
+   cd Dashboard_de_Analisis_de_Vehiculos_USA
    ```
 
 2. Cree y active un entorno virtual (recomendado):
